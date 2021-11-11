@@ -1,5 +1,3 @@
-// let geoApiKey = "AIzaSyDyQdskeIo_awOmChS8qfCIDW0nDNwUOGc";
-
 function time(now) {
   let mins = now.getMinutes();
   let hours = now.getHours();
@@ -65,46 +63,44 @@ function time(now) {
 let now = new Date();
 time(now);
 
-function sentenceCase(str) {
-  if (str === null || str === "") return false;
-  else str = str.toString();
-
-  return str.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-}
-
 function cityname(event) {
   event.preventDefault();
   let city = document.querySelector(".form-control");
-  let cityname = document.querySelector(".city-name");
   city = city.value;
-  city = sentenceCase(city);
-  function showTemp(response) {
-    let temp = document.querySelector(".temparature");
-    let temparature = Math.round(response.data.main.temp);
-    temp.innerHTML = temparature + `<span class="degree-small">°</span>`;
-    let desc = response.data.weather[0].description;
-    let description = document.querySelector("h4");
-    description.innerHTML = sentenceCase(desc);
-    console.log(response.data);
+  search(city);
+  console.log(city);
+}
 
-    let img = response.data.weather[0].icon;
-    let image = document.querySelector(".weather-image");
-    image.innerHTML = `<img src="src/${img[0]}${img[1]}d.png" alt=""></img>`;
+function showTemp(response) {
+  let cityname = document.querySelector(".city-name");
+  let temp = document.querySelector("#temparature");
+  let temparature = Math.round(response.data.main.temp);
+  celsiusTemperature = temparature;
+  temp.innerHTML = temparature;
+  let desc = response.data.weather[0].description;
+  let description = document.querySelector("h4");
+  description.innerHTML = desc;
+  console.log(response.data);
 
-    let wind = document.querySelector(".wind");
-    let speed = Math.round(response.data.wind.speed * 3.6);
-    wind.innerHTML = `Wind = ${speed}kmph`;
+  let img = response.data.weather[0].icon;
+  let image = document.querySelector(".weather-image");
+  image.innerHTML = `<img src="src/${img[0]}${img[1]}d.png" alt=""></img>`;
 
-    let hum = document.querySelector(".humidity");
-    let humidity = response.data.main.humidity;
-    hum.innerHTML = `Humidity = ${humidity}%`;
-    cityname.innerHTML = city;
-  }
+  let wind = document.querySelector(".wind");
+  let speed = Math.round(response.data.wind.speed * 3.6);
+  wind.innerHTML = `Wind = ${speed}kmph`;
 
+  let hum = document.querySelector(".humidity");
+  let humidity = response.data.main.humidity;
+  hum.innerHTML = `Humidity = ${humidity}%`;
+  cityname.innerHTML = response.data.name;
+}
+
+function search(city) {
+  let name = city;
   let apiKey = "0429c757fe53a131346a5441c27ebdac";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${apiKey}&units=metric`;
+  console.log(apiUrl);
   axios
     .get(apiUrl)
     .then(showTemp)
@@ -113,10 +109,39 @@ function cityname(event) {
     });
 }
 
-let form = document.querySelector("form");
-form.addEventListener("submit", cityname);
+function showftemp(event) {
+  event.preventDefault();
+  clink.classList.add("active");
+  flink.classList.remove("active");
+  clink.classList.remove("dective");
+  flink.classList.add("dective");
+  console.log(celsiusTemperature);
+  let ftemp = Math.round((celsiusTemperature * 9) / 5 + 32);
+
+  let tempelement = document.querySelector(".t");
+  tempelement.innerHTML = ftemp;
+}
+
+function showctemp(event) {
+  event.preventDefault();
+  clink.classList.remove("active");
+  flink.classList.add("active");
+  clink.classList.add("dective");
+  flink.classList.remove("dective");
+  let tempelement = document.querySelector(".t");
+  tempelement.innerHTML = Math.round(celsiusTemperature);
+}
 
 current();
+search("San Francisco");
+
+let flink = document.getElementById("faren-link");
+flink.addEventListener("click", showftemp);
+let clink = document.getElementById("celsius-link");
+clink.addEventListener("click", showctemp);
+
+let form = document.querySelector("form");
+form.addEventListener("submit", cityname);
 
 function current() {
   navigator.geolocation.getCurrentPosition(retrievePosition);
@@ -127,31 +152,5 @@ function current() {
     let lon = position.coords.longitude;
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
     axios.get(url).then(showTemp);
-  }
-
-  function showTemp(response) {
-    let city = response.data.name;
-    city = sentenceCase(city);
-    let temp = document.querySelector(".temparature");
-    let temparature = Math.round(response.data.main.temp);
-    temp.innerHTML = temparature + `<span class="degree-small">°</span>`;
-    let desc = response.data.weather[0].description;
-    let description = document.querySelector("h4");
-    description.innerHTML = sentenceCase(desc);
-    console.log(response.data);
-
-    let img = response.data.weather[0].icon;
-    let image = document.querySelector(".weather-image");
-    image.innerHTML = `<img src="src/${img[0]}${img[1]}d.png" alt=""></img>`;
-
-    let wind = document.querySelector(".wind");
-    let speed = Math.round(response.data.wind.speed * 3.6);
-    wind.innerHTML = `Wind = ${speed}kmph`;
-
-    let hum = document.querySelector(".humidity");
-    let humidity = response.data.main.humidity;
-    hum.innerHTML = `Humidity = ${humidity}%`;
-    let curcity = document.querySelector(".city-name");
-    curcity.innerHTML = city;
   }
 }
