@@ -46,18 +46,18 @@ function time(now) {
   let month = months[now.getMonth()];
   let time = document.querySelector(".date-time");
   time.innerHTML = `${day}, ${date} ${month} ${hours}:${mins}`;
-  let day1 = document.querySelector(".day1");
-  day1.innerHTML = `${days[(d + 1) % 7]}`;
-  let day2 = document.querySelector(".day2");
-  day2.innerHTML = `${days[(d + 2) % 7]}`;
-  let day3 = document.querySelector(".day3");
-  day3.innerHTML = `${days[(d + 3) % 7]}`;
-  let day4 = document.querySelector(".day4");
-  day4.innerHTML = `${days[(d + 4) % 7]}`;
-  let day5 = document.querySelector(".day5");
-  day5.innerHTML = `${days[(d + 5) % 7]}`;
-  let day6 = document.querySelector(".day6");
-  day6.innerHTML = `${days[(d + 6) % 7]}`;
+  // let day1 = document.querySelector(".day1");
+  // day1.innerHTML = `${days[(d + 1) % 7]}`;
+  // let day2 = document.querySelector(".day2");
+  // day2.innerHTML = `${days[(d + 2) % 7]}`;
+  // let day3 = document.querySelector(".day3");
+  // day3.innerHTML = `${days[(d + 3) % 7]}`;
+  // let day4 = document.querySelector(".day4");
+  // day4.innerHTML = `${days[(d + 4) % 7]}`;
+  // let day5 = document.querySelector(".day5");
+  // day5.innerHTML = `${days[(d + 5) % 7]}`;
+  // let day6 = document.querySelector(".day6");
+  // day6.innerHTML = `${days[(d + 6) % 7]}`;
 }
 
 let now = new Date();
