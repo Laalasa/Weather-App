@@ -117,11 +117,11 @@ h4 {
 }
 
 .degree-small {
-  font-weight: 200;
-  font-size: 40px;
+  font-weight: 300;
+  font-size: 85px;
   line-height: 122px;
   position: relative;
-  top: -100px;
+  top: -70px;
 }
 
 .dective {
@@ -132,7 +132,7 @@ h4 {
 ul {
   list-style: none;
   padding-left: 0;
-  padding-right: 90px;
+  padding-right: 25px;
   text-align: right;
   font-size: 24px;
   line-height: 36px;
@@ -155,6 +155,15 @@ h5 {
 .day-temp {
   margin-top: 8px;
   margin-bottom: 0px;
+}
+
+.min1,
+.min2,
+.min3,
+.min4,
+.min5,
+.min6 {
+  opacity: 0.6;
 }
 
 a {
@@ -188,11 +197,45 @@ a:hover {
 @media (max-width: 992px) {
   .temparature,
   ul {
-    text-align: left;
+    text-align: center;
+  }
+
+  .city-name {
+    font-size: 60px;
+  }
+
+  .container {
+    text-align: center;
   }
 
   ul {
     padding-right: 0;
+  }
+
+  .col h1 {
+    display: block !important;
+    margin: 0 auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .city-name {
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 50px;
+  }
+
+  .date-time {
+    font-size: 20px;
+    line-height: normal;
+  }
+
+  .p-5 {
+    padding: 20px !important;
+  }
+
+  .push-down img {
+    margin-top: 10px;
   }
 }
 
@@ -208,33 +251,27 @@ a:hover {
   .button img {
     width: 24px;
   }
-  .p-5 {
-    padding: 20px !important;
-  }
-  .city-name {
-    font-size: 34px;
-    font-weight: 200;
-    line-height: 28px;
-  }
-  .date-time {
-    font-size: 20px;
-    line-height: normal;
-  }
+
   .body {
     padding: 36px;
   }
   .container {
     padding: 20px !important;
+    text-align: center !important;
+  }
+
+  div.col-md {
+    padding: 0 !important;
   }
 
   .weather-image img {
     width: 80px;
   }
 
-  ul {
+  /* ul {
     font-size: 20px;
     line-height: normal;
-  }
+  } */
 
   h5 {
     font-size: 20px;

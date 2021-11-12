@@ -46,18 +46,18 @@ function time(now) {
   let month = months[now.getMonth()];
   let time = document.querySelector(".date-time");
   time.innerHTML = `${day}, ${date} ${month} ${hours}:${mins}`;
-  // let day1 = document.querySelector(".day1");
-  // day1.innerHTML = `${days[(d + 1) % 7]}`;
-  // let day2 = document.querySelector(".day2");
-  // day2.innerHTML = `${days[(d + 2) % 7]}`;
-  // let day3 = document.querySelector(".day3");
-  // day3.innerHTML = `${days[(d + 3) % 7]}`;
-  // let day4 = document.querySelector(".day4");
-  // day4.innerHTML = `${days[(d + 4) % 7]}`;
-  // let day5 = document.querySelector(".day5");
-  // day5.innerHTML = `${days[(d + 5) % 7]}`;
-  // let day6 = document.querySelector(".day6");
-  // day6.innerHTML = `${days[(d + 6) % 7]}`;
+  let day1 = document.querySelector(".day1");
+  day1.innerHTML = `${days[(d + 1) % 7]}`;
+  let day2 = document.querySelector(".day2");
+  day2.innerHTML = `${days[(d + 2) % 7]}`;
+  let day3 = document.querySelector(".day3");
+  day3.innerHTML = `${days[(d + 3) % 7]}`;
+  let day4 = document.querySelector(".day4");
+  day4.innerHTML = `${days[(d + 4) % 7]}`;
+  let day5 = document.querySelector(".day5");
+  day5.innerHTML = `${days[(d + 5) % 7]}`;
+  let day6 = document.querySelector(".day6");
+  day6.innerHTML = `${days[(d + 6) % 7]}`;
 }
 
 let now = new Date();
@@ -80,11 +80,11 @@ function showTemp(response) {
   let desc = response.data.weather[0].description;
   let description = document.querySelector("h4");
   description.innerHTML = desc;
-  console.log(response.data);
+  // console.log(response.data);
 
   let img = response.data.weather[0].icon;
   let image = document.querySelector(".weather-image");
-  image.innerHTML = `<img src="src/${img[0]}${img[1]}d.png" alt=""></img>`;
+  image.innerHTML = `<img src="src/${img[0]}${img[1]}n.png" alt=""></img>`;
 
   let wind = document.querySelector(".wind");
   let speed = Math.round(response.data.wind.speed * 3.6);
@@ -94,13 +94,79 @@ function showTemp(response) {
   let humidity = response.data.main.humidity;
   hum.innerHTML = `Humidity = ${humidity}%`;
   cityname.innerHTML = response.data.name;
+
+  let forecastApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&exclude={current}&appid=${apiKey}&units=metric`;
+  axios.get(forecastApi).then(forecast);
+}
+
+function forecast(response) {
+  // console.log(response.data.daily);
+
+  let min = document.querySelector(".min1");
+  let minimum = Math.round(response.data.daily[0].temp.min);
+  min.innerHTML = `${minimum}°`;
+  let max = document.querySelector(".max1");
+  let maximum = Math.round(response.data.daily[0].temp.max);
+  max.innerHTML = `${maximum}°`;
+  let img = response.data.daily[0].weather[0].icon;
+  let image = document.querySelector(".img1");
+  image.innerHTML = `<img src="src/${img[0]}${img[1]}n.png" alt="" class="day-img img1">`;
+
+  min = document.querySelector(".min2");
+  minimum = Math.round(response.data.daily[1].temp.min);
+  min.innerHTML = `${minimum}°`;
+  max = document.querySelector(".max2");
+  maximum = Math.round(response.data.daily[1].temp.max);
+  max.innerHTML = `${maximum}°`;
+  img = response.data.daily[1].weather[0].icon;
+  image = document.querySelector(".img2");
+  image.innerHTML = `<img src="src/${img[0]}${img[1]}n.png" alt="" class="day-img img2">`;
+
+  min = document.querySelector(".min3");
+  minimum = Math.round(response.data.daily[2].temp.min);
+  min.innerHTML = `${minimum}°`;
+  max = document.querySelector(".max3");
+  maximum = Math.round(response.data.daily[2].temp.max);
+  max.innerHTML = `${maximum}°`;
+  img = response.data.daily[2].weather[0].icon;
+  image = document.querySelector(".img3");
+  image.innerHTML = `<img src="src/${img[0]}${img[1]}n.png" alt="" class="day-img img3">`;
+
+  min = document.querySelector(".min4");
+  minimum = Math.round(response.data.daily[3].temp.min);
+  min.innerHTML = `${minimum}°`;
+  max = document.querySelector(".max4");
+  maximum = Math.round(response.data.daily[3].temp.max);
+  max.innerHTML = `${maximum}°`;
+  img = response.data.daily[3].weather[0].icon;
+  image = document.querySelector(".img4");
+  image.innerHTML = `<img src="src/${img[0]}${img[1]}n.png" alt="" class="day-img img4">`;
+
+  min = document.querySelector(".min5");
+  minimum = Math.round(response.data.daily[4].temp.min);
+  min.innerHTML = `${minimum}°`;
+  max = document.querySelector(".max5");
+  maximum = Math.round(response.data.daily[4].temp.max);
+  max.innerHTML = `${maximum}°`;
+  img = response.data.daily[4].weather[0].icon;
+  image = document.querySelector(".img5");
+  image.innerHTML = `<img src="src/${img[0]}${img[1]}n.png" alt="" class="day-img img5">`;
+
+  min = document.querySelector(".min6");
+  minimum = Math.round(response.data.daily[5].temp.min);
+  min.innerHTML = `${minimum}°`;
+  max = document.querySelector(".max6");
+  maximum = Math.round(response.data.daily[5].temp.max);
+  max.innerHTML = `${maximum}°`;
+  img = response.data.daily[5].weather[0].icon;
+  image = document.querySelector(".img6");
+  image.innerHTML = `<img src="src/${img[0]}${img[1]}n.png" alt="" class="day-img img6">`;
 }
 
 function search(city) {
   let name = city;
-  let apiKey = "0429c757fe53a131346a5441c27ebdac";
+  apiKey = "0429c757fe53a131346a5441c27ebdac";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${apiKey}&units=metric`;
-  console.log(apiUrl);
   axios
     .get(apiUrl)
     .then(showTemp)
@@ -109,36 +175,8 @@ function search(city) {
     });
 }
 
-function showftemp(event) {
-  event.preventDefault();
-  clink.classList.add("active");
-  flink.classList.remove("active");
-  clink.classList.remove("dective");
-  flink.classList.add("dective");
-  console.log(celsiusTemperature);
-  let ftemp = Math.round((celsiusTemperature * 9) / 5 + 32);
-
-  let tempelement = document.querySelector(".t");
-  tempelement.innerHTML = ftemp;
-}
-
-function showctemp(event) {
-  event.preventDefault();
-  clink.classList.remove("active");
-  flink.classList.add("active");
-  clink.classList.add("dective");
-  flink.classList.remove("dective");
-  let tempelement = document.querySelector(".t");
-  tempelement.innerHTML = Math.round(celsiusTemperature);
-}
-
 current();
 search("San Francisco");
-
-let flink = document.getElementById("faren-link");
-flink.addEventListener("click", showftemp);
-let clink = document.getElementById("celsius-link");
-clink.addEventListener("click", showctemp);
 
 let form = document.querySelector("form");
 form.addEventListener("submit", cityname);
