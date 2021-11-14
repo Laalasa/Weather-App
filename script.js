@@ -68,8 +68,6 @@ function cityname(event) {
   city = city.value;
   search(city);
   console.log(city);
-  city = document.querySelector(".form-control");
-  city.innerHTML="";
 }
 
 function showTemp(response) {
