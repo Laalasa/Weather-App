@@ -16,7 +16,6 @@ function time(now) {
   let day = week[now.getDay()];
   let d = now.getDay();
   let date = now.getDate();
-  date = 3;
   let months = [
     "Jan",
     "Feb",
