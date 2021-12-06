@@ -1,3 +1,11 @@
+var loader = document.getElementById("preloader");
+window.addEventListener("load", preloader);
+
+function preloader(event) {
+  // event.preventDefaulf();
+  loader.style.display = "none";
+}
+
 function time(now) {
   let mins = now.getMinutes();
   let hours = now.getHours();
